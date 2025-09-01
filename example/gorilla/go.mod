@@ -3,8 +3,8 @@ module github.com/venosm/http-swagger/example/gorilla
 go 1.25
 
 require (
-	github.com/gorilla/mux v1.8.0
-	github.com/venosm/http-swagger v0.0.0
+	github.com/gorilla/mux v1.8.1
+	github.com/venosm/http-swagger v1.0.0
 	github.com/venosm/swaggo v1.0.0
 )
 
@@ -33,5 +33,3 @@ require (
 	golang.org/x/tools v0.36.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-replace github.com/venosm/http-swagger => ../../
