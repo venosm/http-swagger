@@ -5,7 +5,7 @@ go 1.25
 require (
 	github.com/gorilla/mux v1.8.1
 	github.com/venosm/http-swagger v1.0.0
-	github.com/venosm/swaggo v1.0.1
+	github.com/venosm/swaggo v1.0.0
 )
 
 require (

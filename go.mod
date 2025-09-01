@@ -5,7 +5,7 @@ go 1.25
 require (
 	github.com/stretchr/testify v1.11.1
 	github.com/swaggo/files/v2 v2.0.2
-	github.com/venosm/swaggo v1.0.1
+	github.com/venosm/swaggo v1.0.0
 )
 
 require (
