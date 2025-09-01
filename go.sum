@@ -50,8 +50,8 @@ github.com/stretchr/testify v1.11.1 h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu
 github.com/stretchr/testify v1.11.1/go.mod h1:wZwfW3scLgRK+23gO65QZefKpKQRnfz6sD981Nm4B6U=
 github.com/swaggo/files/v2 v2.0.2 h1:Bq4tgS/yxLB/3nwOMcul5oLEUKa877Ykgz3CJMVbQKU=
 github.com/swaggo/files/v2 v2.0.2/go.mod h1:TVqetIzZsO9OhHX1Am9sRf9LdrFZqoK49N37KON/jr0=
-github.com/venosm/swaggo v1.0.0 h1:4nwZduuXKAS7neAl5swxni3c6LgwyEuyJtb3Zj8prNM=
-github.com/venosm/swaggo v1.0.0/go.mod h1:6A6eUC9Sczfd/8HfzjvLiE08C+OC4C+c04NKQwdBnDw=
+github.com/venosm/swaggo v1.0.1 h1:4nwZduuXKAS7neAl5swxni3c6LgwyEuyJtb3Zj8prNM=
+github.com/venosm/swaggo v1.0.1/go.mod h1:6A6eUC9Sczfd/8HfzjvLiE08C+OC4C+c04NKQwdBnDw=
 golang.org/x/mod v0.27.0 h1:kb+q2PyFnEADO2IEF935ehFUXlWiNjJWtRNgBLSfbxQ=
 golang.org/x/mod v0.27.0/go.mod h1:rWI627Fq0DEoudcK+MBkNkCe0EetEaDSwJJkCcjpazc=
 golang.org/x/sync v0.16.0 h1:ycBJEhp9p4vXvUZNszeOq0kGTPghopOL8q0fq3vstxw=
