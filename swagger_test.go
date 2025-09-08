@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/venosm/swaggo"
+	"github.com/venosm/swag"
 )
 
 type mockedSwag struct{}
@@ -91,11 +91,13 @@ func TestWrapHandler(t *testing.T) {
 	}
 	for _, test := range tests {
 		router := http.NewServeMux()
-		router.Handle(test.RootFolder, Handler(
-			DocExpansion("none"),
-			DomID("swagger-ui"),
-			InstanceName(test.InstanceName),
-		))
+		router.Handle(
+			test.RootFolder, Handler(
+				DocExpansion("none"),
+				DomID("swagger-ui"),
+				InstanceName(test.InstanceName),
+			),
+		)
 
 		w1 := performRequest(http.MethodGet, test.RootFolder+"index.html", router)
 		assert.Equal(t, http.StatusOK, w1.Code)
@@ -282,10 +284,12 @@ func TestConfigURL(t *testing.T) {
 					"AnotherPlugin",
 				},
 			},
-			cfgfn: Plugins([]string{
-				"SomePlugin",
-				"AnotherPlugin",
-			}),
+			cfgfn: Plugins(
+				[]string{
+					"SomePlugin",
+					"AnotherPlugin",
+				},
+			),
 		},
 		{
 			desc: "configure UIConfig",
@@ -294,9 +298,11 @@ func TestConfigURL(t *testing.T) {
 					"urls": `["https://example.org/doc1.json","https://example.org/doc1.json"],`,
 				},
 			},
-			cfgfn: UIConfig(map[string]string{
-				"urls": `["https://example.org/doc1.json","https://example.org/doc1.json"],`,
-			}),
+			cfgfn: UIConfig(
+				map[string]string{
+					"urls": `["https://example.org/doc1.json","https://example.org/doc1.json"],`,
+				},
+			),
 		},
 		{
 			desc: "configure BeforeScript",
@@ -305,9 +311,11 @@ func TestConfigURL(t *testing.T) {
     // Some plugin
   });`,
 			},
-			cfgfn: BeforeScript(`const SomePlugin = (system) => ({
+			cfgfn: BeforeScript(
+				`const SomePlugin = (system) => ({
     // Some plugin
-  });`),
+  });`,
+			),
 		},
 		{
 			desc: "configure AfterScript",
@@ -316,18 +324,22 @@ func TestConfigURL(t *testing.T) {
     // Some plugin
   });`,
 			},
-			cfgfn: AfterScript(`const SomePlugin = (system) => ({
+			cfgfn: AfterScript(
+				`const SomePlugin = (system) => ({
     // Some plugin
-  });`),
+  });`,
+			),
 		},
 	}
 
 	for _, fix := range fixtures {
-		t.Run(fix.desc, func(t *testing.T) {
-			cfg := &Config{}
-			fix.cfgfn(cfg)
-			assert.Equal(t, cfg, fix.exp)
-		})
+		t.Run(
+			fix.desc, func(t *testing.T) {
+				cfg := &Config{}
+				fix.cfgfn(cfg)
+				assert.Equal(t, cfg, fix.exp)
+			},
+		)
 	}
 }
 
@@ -526,70 +538,72 @@ func TestUIConfigOptions(t *testing.T) {
 	}
 
 	for _, fix := range fixtures {
-		t.Run(fix.desc, func(t *testing.T) {
-			tmpl := template.New("swagger_index.html")
-			index, err := tmpl.Parse(indexTempl)
-			if err != nil {
-				t.Fatal(err)
-			}
-
-			buf := bytes.NewBuffer(nil)
-			if err := index.Execute(buf, fix.cfg); err != nil {
-				t.Fatal(err)
-			}
-
-			exp := hdr + fix.exp + ftr
-
-			// Compare line by line
-			explns := strings.Split(exp, "\n")
-			buflns := strings.Split(buf.String(), "\n")
-
-			explen, buflen := len(explns), len(buflns)
-			if explen != buflen {
-				t.Errorf("expected %d lines, but got %d", explen, buflen)
-			}
-
-			printContext := func(idx int) {
-				lines := 3
-
-				firstIdx := idx - lines
-				if firstIdx < 0 {
-					firstIdx = 0
+		t.Run(
+			fix.desc, func(t *testing.T) {
+				tmpl := template.New("swagger_index.html")
+				index, err := tmpl.Parse(indexTempl)
+				if err != nil {
+					t.Fatal(err)
 				}
-				lastIdx := idx + lines
-				if lastIdx > explen {
-					lastIdx = explen
-				}
-				if lastIdx > buflen {
-					lastIdx = buflen
-				}
-				t.Logf("expected:\n")
-				for i := firstIdx; i < lastIdx; i++ {
-					t.Logf("%s", explns[i])
-				}
-				t.Logf("got:\n")
-				for i := firstIdx; i < lastIdx; i++ {
-					t.Logf("%s", buflns[i])
-				}
-			}
 
-			for i, expln := range explns {
-				if i >= buflen {
-					printContext(i)
-					t.Fatalf(`first unequal line: expected "%s" but got EOF`, expln)
+				buf := bytes.NewBuffer(nil)
+				if err := index.Execute(buf, fix.cfg); err != nil {
+					t.Fatal(err)
 				}
-				bufln := buflns[i]
-				if bufln != expln {
-					printContext(i)
-					t.Fatalf(`first unequal line: expected "%s" but got "%s"`, expln, bufln)
-				}
-			}
 
-			if buflen > explen {
-				printContext(explen - 1)
-				t.Fatalf(`first unequal line: expected EOF, but got "%s"`, buflns[explen])
-			}
-		})
+				exp := hdr + fix.exp + ftr
+
+				// Compare line by line
+				explns := strings.Split(exp, "\n")
+				buflns := strings.Split(buf.String(), "\n")
+
+				explen, buflen := len(explns), len(buflns)
+				if explen != buflen {
+					t.Errorf("expected %d lines, but got %d", explen, buflen)
+				}
+
+				printContext := func(idx int) {
+					lines := 3
+
+					firstIdx := idx - lines
+					if firstIdx < 0 {
+						firstIdx = 0
+					}
+					lastIdx := idx + lines
+					if lastIdx > explen {
+						lastIdx = explen
+					}
+					if lastIdx > buflen {
+						lastIdx = buflen
+					}
+					t.Logf("expected:\n")
+					for i := firstIdx; i < lastIdx; i++ {
+						t.Logf("%s", explns[i])
+					}
+					t.Logf("got:\n")
+					for i := firstIdx; i < lastIdx; i++ {
+						t.Logf("%s", buflns[i])
+					}
+				}
+
+				for i, expln := range explns {
+					if i >= buflen {
+						printContext(i)
+						t.Fatalf(`first unequal line: expected "%s" but got EOF`, expln)
+					}
+					bufln := buflns[i]
+					if bufln != expln {
+						printContext(i)
+						t.Fatalf(`first unequal line: expected "%s" but got "%s"`, expln, bufln)
+					}
+				}
+
+				if buflen > explen {
+					printContext(explen - 1)
+					t.Fatalf(`first unequal line: expected EOF, but got "%s"`, buflns[explen])
+				}
+			},
+		)
 	}
 }
 

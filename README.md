@@ -12,23 +12,23 @@ Default net/http wrapper to automatically generate RESTful API documentation wit
 
 ### Start using it
 
-1. Add comments to your API source code, [See Declarative Comments Format](https://github.com/venosm/swaggo#declarative-comments-format).
-2. Download [Swag](https://github.com/venosm/swaggo) for Go by using:
+1. Add comments to your API source code, [See Declarative Comments Format](https://github.com/venosm/swag#declarative-comments-format).
+2. Download [Swag](https://github.com/venosm/swag) for Go by using:
 ```sh
-go install github.com/venosm/swaggo/cmd/swag@latest
+go install github.com/venosm/swag/cmd/swag@latest
 ```
 To build from source you need [Go](https://golang.org/dl/) (1.17 or newer).
 
-Or download a pre-compiled binary from the [release page](https://github.com/venosm/swaggo/releases).
+Or download a pre-compiled binary from the [release page](https://github.com/venosm/swag/releases).
 
-3. Run the [Swag](https://github.com/venosm/swaggo) in your Go project root folder which contains `main.go` file, [Swag](https://github.com/venosm/swaggo) will parse comments and generate required files(`docs` folder and `docs/doc.go`).
+3. Run the [Swag](https://github.com/venosm/swag) in your Go project root folder which contains `main.go` file, [Swag](https://github.com/venosm/swag) will parse comments and generate required files(`docs` folder and `docs/doc.go`).
 ```sh
 swag init
 ```
 4. Download [http-swagger](https://github.com/venosm/http-swagger) by using:
 ```sh
 go get -u github.com/venosm/http-swagger
-go get -u github.com/swaggo/files/v2 # swaggo files
+go get -u github.com/venosm/swag-files # swaggo files
 ```
 
 Import following in your code:

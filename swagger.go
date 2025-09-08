@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"regexp"
 
-	swaggerFiles "github.com/swaggo/files/v2"
-	"github.com/venosm/swaggo"
+	"github.com/venosm/swag"
+	swaggerFiles "github.com/venosm/swag-files"
 )
 
 // WrapHandler wraps swaggerFiles.Handler and returns http.HandlerFunc.
@@ -31,9 +31,9 @@ type Config struct {
 	DefaultModelsExpandDepth ModelsExpandDepthType
 	ShowExtensions           bool
 	// OpenAPI 3.0 specific configuration
-	TryItOutEnabled          bool   // Enable/disable the "Try it out" feature
-	RequestInterceptor       template.JS
-	ResponseInterceptor      template.JS
+	TryItOutEnabled     bool // Enable/disable the "Try it out" feature
+	RequestInterceptor  template.JS
+	ResponseInterceptor template.JS
 }
 
 // URL presents the url pointing to API definition (normally doc.json, swagger.json, swagger.yaml, openapi.json or openapi.yaml).
